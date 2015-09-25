@@ -12,17 +12,17 @@ This is a quick post with the necessary configuration.
 <!-- more -->
 
 First declare a *coverageReporter* of type **lcov**.
-{% codeblock lang:javascript %}
+~~~ javascript
 coverageReporter = {
 	type : 'lcov',
 	dir : 'build/reports/coverage/'
 }
-{% endcodeblock %}
+~~~
 
 Then declare **coverage** as one of the *reporters*
-{% codeblock lang:javascript %}
+~~~ javascript
 reporters = ['progress', 'dots', 'junit', 'coverage'];
-{% endcodeblock %}
+~~~
 
 And your done with the *karma.js* part.
 
@@ -30,7 +30,7 @@ Now, the following part is for **gradle** but I'm pretty sure you'll need the sa
 
 To start karma I created a gradle task:
 
-{% codeblock lang:java %}
+~~~ java
 task karmaTest(type:Exec) {
 
   commandLine "karma", "--singleRun", "true", "--browsers", "PhantomJS", "start", "src/test/js/config/karma.conf.js"
@@ -41,11 +41,11 @@ task karmaTest(type:Exec) {
     return standardOutput.toString();
   }
 }
-{% endcodeblock %}
+~~~
 
-And then 
+And then
 
-{% codeblock lang:java %}
+~~~ java
 project(":your-project") {
   apply plugin: 'sonar-runner'
   sonarRunner {
@@ -75,6 +75,6 @@ project(":your-project") {
     }
   }
 }
-{% endcodeblock %}
+~~~
 
 The annoying thing I can't still resolve is that *lcov.info* is under the directory *PhantomJS 1.9 (Linux)* cannot be renamed, or at least I can't find how.

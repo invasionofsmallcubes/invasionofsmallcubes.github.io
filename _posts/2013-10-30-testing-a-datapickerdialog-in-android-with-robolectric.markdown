@@ -15,7 +15,7 @@ I'll explain first the implementation because it's pretty similar to the example
 
 <!-- more -->
 
-{% codeblock lang:java %}
+~~~ java
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
@@ -28,7 +28,7 @@ public class DatePickerFragment extends DialogFragment implements
 		DatePickerDialog.OnDateSetListener {
 
 	final Calendar calendar = Calendar.getInstance();
-	
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 	   // I create the new DatePickerDialog setting the date to now
@@ -45,7 +45,7 @@ public class DatePickerFragment extends DialogFragment implements
 	}
 
 }
-{% endcodeblock %}
+~~~
 
 As you can see the code is pretty straight forward. What I wanted to test is that, given a certain DataPickerDialog, the date showed is the one I set.
 The date picker is a **DialogFragment** so I want to be able to test it without the usage of a the activity where I want to use the dialog.
@@ -54,7 +54,7 @@ When I use the activity it become an integration test, kinda :)
 Let's start saying a Dialog is a pain in the ass to test. You still need to build a **FragmentActivity** and then call a **FragmentManager**.
 You start the transaction, call `show` on the fragment, and then you execute the call. Let's see it:
 
-{% codeblock lang:java %}
+~~~ java
 @RunWith(RobolectricTestRunner.class)
 public class DatePickerFragmentTest {
 
@@ -82,17 +82,16 @@ public class DatePickerFragmentTest {
 				.getLatestDialog();
 
 		assertThat(dialog, is(not(nullValue())));
-		
+
 		assertThat(dialog.getDatePicker().getDayOfMonth(), is(expectedDay));
 		assertThat(dialog.getDatePicker().getMonth(), is(expectedMonth));
 		assertThat(dialog.getDatePicker().getYear(), is(expectedYear));
 	}
 
 }
-{% endcodeblock %}
+~~~
 
 This is where I'm blocked. It seems I'm able to assert that the dialog is not null, but when it comes to execute the `getDataPicker`, I have a big fat `NullPointerException`.
 Asking the question on [stackoverflow](http://stackoverflow.com/questions/19661651/is-there-a-way-to-test-pickers-with-robolectric?noredirect=1#comment29221761_19661651) right now didn't give me a viable solution.
 
 Next step would be to try a real fragment activity with a layout. If even then I go no where, I'll test it with Robotium. Stay tuned.
-

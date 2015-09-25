@@ -18,12 +18,11 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Operators]
 
 > ####Be aware that:
 > `b=false; if(b=true);` it's legal because you are first assigning *b* to **true** and then it gets evaluated. For string concatenation be aware of the following usage:
-{% codeblock lang:java %} 
-byte u = 3; 
-System.out.println( u+1 ); // 4 
+~~~ java
+byte u = 3;
+System.out.println( u+1 ); // 4
 System.out.println( u+1+"text");  // 4text
 System.out.println((u+1)+"text"); // 4text
 System.out.println("text"+u+1); // text31
 System.out.println("text"+(u+1)); // text4
-{% endcodeblock %}
-
+~~~
