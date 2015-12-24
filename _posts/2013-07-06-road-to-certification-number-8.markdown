@@ -7,38 +7,44 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Autoboxing, Wrappers, Garba
 ---
 ##Autoboxing, *==* and *equals()*
 Today we will talk a bit more about wrappers. Autoboxing is the concept that allows you to do something like:
-``` java AUTOBOXING
+
+~~~~~~~~
 Integer x = new Integer(1000);
 x++;
-```
+~~~~~~~~
+
 If you remember, we said that wrappers are immutable, so what we wrote should not work because the new object should not be inside `x` but should be lost because we did not assign it to a new variable. Also using the post-increment operator could not be possible unless `++` overloading it's possible.
 
 It's actually the JVM that does all that: we have a `Integer` x. When we use the post-increment operator, the JVM unbox the value from the wrapper, applies to it the operator, creates a new `Integer` with the incremented value and than assigns it to `x`. Still doubts? Just try this then:
-``` java JVM AUTOBOXING SKILLS
+
+~~~~~~~~
 Integer y = new Integer(1999);
 Integer x = y;
 System.out.println(x == y);
 y++;
 System.out.println(x == y);
-```
+~~~~~~~~
+
 <!-- more -->
 For wrappers equality is defined as having the same value and therefore the same primitive type. As we saw you really need to be careful in using the operator `==` because you can have surprises:
-``` java == OPERATOR AND WRAPPERS
+
+~~~~~~~~
 Integer a = new Integer(126);
 Integer b = new Integer(126);
 System.out.println(a == b); // false
-			
+
 a = Integer.valueOf(126);
 b = Integer.valueOf(126);
 System.out.println(a == b); // true
-			
+
 a = Integer.valueOf(1260);
 b = Integer.valueOf(1260);
 System.out.println(a == b); // false
-```
+~~~~~~~~
+
 > ####Be aware that:
 > The [Java Language Specification](http://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html#jls-5.1.7) says: if the value p being boxed is true, false, a byte, or a char in the range \u0000 to \u007f, or an int or short number between -128 and 127 (inclusive), then let r1 > and r2 be the results of any two boxing conversions of p. It is always the case that r1 == r2.
-> 
+>
 > Ideally, boxing a given primitive value p, would always yield an identical reference. In practice, this may not be feasible using existing implementation techniques. The rules above are a pragmatic compromise. The final clause above requires that certain common values always be boxed into indistinguishable objects.  
 > The implementation may cache these, lazily or eagerly. For other values, this formulation disallows any assumptions about the identity of the boxed values on the programmer's part. This would allow (but not require) sharing of some or all of these references.
 
@@ -62,12 +68,14 @@ Widening wins also with var-args and boxing wins with var-args. Var-args will be
 If we are just considering objects then widening is in place where widening means passing the IS-A test.
 
 If we have boxing+widening it really depends on the specific case, you really need to exercise in this case. What happens here?
-``` java JVM AUTOBOXING SKILLS
+
+~~~~~~~~
 public void doIt(Long a) {}
 ...
 byte b = 0;
 doIt(b);
-```
+~~~~~~~~
+
 We do not have a method suitable for a byte so the boxing elevates **byte** to a **Byte** but `Byte IS-A Long` is **false** so it won't compile. The real error is *The method doIt(Long) in the type MyExternalClass is not applicable for the arguments (Integer)*, after what we said, can you explain why it does say *Integer* and not *Byte*?
 
 ##Garbage Collection

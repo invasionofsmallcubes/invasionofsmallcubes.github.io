@@ -14,7 +14,8 @@ The keyword **implements** is used by a class to implement an *interface*:
 * same signature of the interface (the return type can be a subclass of the one in the interface method), also you don't need to redeclare the checked exceptions if you're not doing something that throws it.
 > ####Be aware that:
 > Remember the interface example with two interfaces having the same method signature? Is this compiling?
-``` java INTERFACE WITH CHECKED EXCEPTION 
+
+~~~~~~~~
 interface Bounceable {
 	void something() throws IOException;
 }
@@ -25,9 +26,10 @@ interface Someable extends Bounceable, Breakable {}
 class Lol implements Bounceable, Breakable {
 	@Override
 	public void something(){
-	}	
+	}
 }
-```
+~~~~~~~~
+
 <!-- more -->
 **A class can "extends" just one class but can "implements" one or more interfaces. An interface can "extends" one or more interfaces.**
 ###Legal Return Type

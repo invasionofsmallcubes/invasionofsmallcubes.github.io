@@ -7,11 +7,13 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Exception Handling]
 ---
 ##Exception Handling
 The syntax for handling exception is:
-``` java EXCEPTION HANDLING
+
+~~~~~~~~
 try {}
 catch (<MyException> e) {}
 finally {}
-```
+~~~~~~~~
+
 If there is a try you need a `catch` or a `finally` or both. Every `catch` must precede the `finally` and they must be declared respecting the hierarchy from the more specialized to the less specialized (e.g. `FileNotFoundException` before `IOException`).
 <!-- more -->
 The code inside the `finally` is always executed, even if there is a `return` inside the `try`.

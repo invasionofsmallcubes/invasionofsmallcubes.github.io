@@ -15,7 +15,8 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Control Flow]
 
 <!-- more -->
 * `switch`: inside a switch you can have **char**, **byte**, **short**, **int** and **enum**, so everything you can cast to **int**. Inside `case` you have to put **compile-time constants**. You cannot use **float**, **double** and **long**. This is the syntax for a `switch`:
-``` java SWITCH SYNTAX
+
+~~~~~~~~
 		switch (variable) {
 		case <compile-time constant>:
 
@@ -24,11 +25,13 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Control Flow]
 		default:
 			break;
 		}
-```
+~~~~~~~~
+
 `default` and `break` are optionals. It's not possible to have different `case`s with the same label. Remember that `'a'` equals to `97` so you cannot have both case in a switch, you'll get a compiler error. In the switch argument you can also have variables declared `final` and initialized so this is legal: `final int a = 0;`. Remember to assign the variable to a value or you'll get a compiler error. The `switch` statement base its checks on what you are passing. If you pass for example a **byte** a case with the value of 128 will be out of range and you'll get a compilation error. In a `switch` you can also use wrappers (unboxing FTW!) like **Byte**, **Integer** etc...
 
 `case` are evaluated with an approch top-down and `default` can be anywhere inside a switch, even between `case`. When a `case` is matched, if there isn't a `break` statement, every remaining `case` will be executed sequentially until the end or until a `break` has been found.
-``` java SWITCH SYNTAX
+
+~~~~~~~~
 switch (3) {
 		case 1:
 			System.out.println(1);
@@ -39,10 +42,11 @@ switch (3) {
 		case 2:
 			System.out.println(2); // printed
 		}
-```
+~~~~~~~~
 
 * `while` and `do...while`: the `while` loop takes a **boolean** expression. It's not possible to do declaration inside but it's possible to to do assignment inside:
-``` java WHILE EXAMPLES
+
+~~~~~~~~
 // unreachable codes
 final boolean b = false;
 while(b) {}
@@ -51,9 +55,10 @@ while(false) {}
 boolean b = false;
 while(b) {}
 while(b=true){} // b assigned to true and then goes inside the while block
-```
+~~~~~~~~
+
 with the `do {..} while(expr);` loop the reasoing is the same but the instructuns are going to run at least once.
-* Basic `for` loop: we have three parts in a `for` loop: the declaration ed inizialization of variables (having the scope of the `for`), the boolean expression and the iteration expression. The second part can have only one **boolean** expression. the third part has the iteration expression that can be anything (not only an increment). These are legal: `for(;;)` and `for (int i = 0, j = 0; i < 10; i = (i < 10) ? 10 : 1, j = 3) {}`. 
+* Basic `for` loop: we have three parts in a `for` loop: the declaration ed inizialization of variables (having the scope of the `for`), the boolean expression and the iteration expression. The second part can have only one **boolean** expression. the third part has the iteration expression that can be anything (not only an increment). These are legal: `for(;;)` and `for (int i = 0, j = 0; i < 10; i = (i < 10) ? 10 : 1, j = 3) {}`.
 
 To go out of a loop you can use:
 

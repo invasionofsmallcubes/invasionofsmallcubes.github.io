@@ -16,14 +16,15 @@ They can be expressed in base 10, 8 (octal) or 16 (hex):
 
 They can have `L` or `l` after the number to indicate the type **long**.
 
-``` java EXAMPLE OF INTEGER LITERALS
+~~~~~~~~
 // The number 26, in decimal
 int decVal = 26;
 //  The number 26, in hexadecimal
 int hexVal = 0x1a;
 // The number -8, in octal
 int octalVal = 037777777770;
-```
+~~~~~~~~
+
 <!-- more -->
 ###Floating-Point literal
 Defined by default as **double** (64bit). If you want to use them as **float** you need to put `F` or `f` after the number. Their structure is `integer<dot>fraction` like `0.0f`. Declaring a float without the final *f* you get a *compiler error*.
@@ -56,7 +57,8 @@ With a **compound operator** (+=, -=, *= and /=) the cast is implicit: `b+=7` is
 
 
 If you assign a variable to another variable you are just copying the value of that variable. The two variables are not connected at all. In case of reference variable you are copying the reference of the variable and they are also disconnected:
-``` java VARIABLE ASSIGNMENT
+
+~~~~~~~~
 		CoffeeSize a = CoffeeSize.HUGE;
 		CoffeeSize b = CoffeeSize.BIG;
 		System.out.println(a);
@@ -65,7 +67,7 @@ If you assign a variable to another variable you are just copying the value of t
 		a = CoffeeSize.SMALL;
 		System.out.println(a);
 		System.out.println(b);
-		
+
 		int x = 10;
 		int y = 5;
 		System.out.println(x);
@@ -74,4 +76,4 @@ If you assign a variable to another variable you are just copying the value of t
 		x = 15;
 		System.out.println(x);
 		System.out.println(y);
-```
+~~~~~~~~

@@ -3,7 +3,7 @@ layout: post
 title: "Road to Certification #2"
 date: 2013-06-27 21:07
 comments: true
-categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Modifiers, Constructors ] 
+categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Modifiers, Constructors ]
 ---
 ##Modifiers For Class Members
 ###Access Modifiers
@@ -23,11 +23,13 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Modifiers, Constructors ]
 * **transient**: you can use it on class attributes to specify that they must not be considered during serialization (more on this in future posts);
 ###Var-args
 `void myMethod(int...x) {}` has as parameter a var-arg. You can pass it an arbitrary number of arguments of a specific type. If you have more parameters, var-args must be the last of them in the signature of the method. You can pass both primitives and objects. The following code is valid:
-``` java VAR-ARGS
+
+~~~~~~~~
 public void foo(int i, String... strings) {
 	String[] someStrings = strings;
 }
-```
+~~~~~~~~
+
 ###Constructors
 They do not have a return type, they can accept arguments, var-args included. They cannot be *abstract*, *final* or *static* because they must be implemented (you even have a default constructor if not explicitly declared), cannot be overridden and it's bound to a class instance.
 ##Primitives
@@ -42,7 +44,8 @@ They can have all four access modifiers, can be *final* and *transient*. They ha
 They are in the stack and can be final and you must initialize them when you want to use them. If you don't do it you'll get a compile-error.
 ###Array declaration
 They are objects and are in the heap. They can contain both objects and primitives and if you don't initialize the elements they get a default value. You can declare them like this:
-``` java VALID ARRAY DECLARATIONS
+
+~~~~~~~~
 int[] x;
 itn x[];
 int[][] x; // multidimensional array
@@ -53,5 +56,4 @@ int[] x = new int[5]; // dimension goes
 * The following is legal, array is an object
 */
 public Object returnArray() { int[] x; return x; }
-
-```
+~~~~~~~~
