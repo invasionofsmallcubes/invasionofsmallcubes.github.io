@@ -5,9 +5,10 @@ date: 2013-07-14 11:22
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Inner Classes]
 ---
-##Inner Classes
+## Inner Classes
 A **regular inner class** is able to reach members of the outer class. A regular inner class is not declared static, it's not a local method inner class and it's not anonymous.
-``` java REGULAR INNER CLASS
+
+``` java
 class MyOuter {
 	class MyInner {}
 }
@@ -27,17 +28,17 @@ Modifier you can apply to inner classes are: every modifier you can apply to a c
 
 You can declare inner classes inside an **interface**, they'll be **public static** by default and cannot use methods declared in the interface.
 
-###Method-local inner classes
+### Method-local inner classes
 It's possible to declare inner classes inside methods ma you can use them only after you declared them (obvious but there questions about it, so better to stress it).
 
-They can be instantiated only inside the method where it's defined. Even this type of inner classes can access members of the outer class but can use local variable only if declared **final** and initialized before using them. In this case acceptable modifiers for the class are **final** and **abstract**. 
+They can be instantiated only inside the method where it's defined. Even this type of inner classes can access members of the outer class but can use local variable only if declared **final** and initialized before using them. In this case acceptable modifiers for the class are **final** and **abstract**.
 
 If the method where you declared it is static, then the inner class can only access static members.
 
-##Anonymous classes
+## Anonymous classes
 It's possible to declare anonymous classes or interfaces. You can basically do an override of methods. You can only use in the code public members already declare in the anonymous class but you can declare new methods if you want. It's possible to implement only just **one interface**.
 
-``` java REGULAR INNER CLASS
+``` java
 class MyClass {
 	public void method() {}
 }

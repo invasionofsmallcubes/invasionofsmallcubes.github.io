@@ -5,11 +5,11 @@ date: 2013-06-28 21:36
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Enum, Override, Overload]
 ---
-##Enum
+## Enum
 You can declare an *enum* inside a class or in a dedicated file. You can't declare it inside a class method.
 If you have the following code:
 
-~~~~~~~~
+~~~~~~~~ java
 public class MyPublicClass {
 	public enum CoffeeSize {
 		SMALL, BIG, HUGE
@@ -42,7 +42,7 @@ public enum CoffeeSize {
 }
 ~~~~~~~~
 
-> ####Be aware that:
+> #### Be aware that:
 > Really weird (well not if you understand the concept of [enum](http://docs.oracle.com/javase/tutorial/java/javaOO/enum.html)) but you can do this:
 	public static void main(String[] args) {
 		CoffeeSize a = CoffeeSize.SMALL;
@@ -50,7 +50,7 @@ public enum CoffeeSize {
 	}
 
 
-##A little bit of OOP principles
+## A little bit of OOP principles
 In the certification there is some question about OOP principles: *encapsulation*, *inheritance*, *cohesion* and *decoupling*.
 
 With *inheritance* is possible to use methods from a superclass and override them when necessary. With *encapsulation* you basically apply the
@@ -58,7 +58,7 @@ principle to access the state of your object in a controlled way, giving to a pr
 
 For deep information you should google these terms. Wikipedia is your friend.
 
-###Relationships between classes
+### Relationships between classes
 We have two kind of relationship:
 
 * **IS-A**: it's about inheritance and interfaces (keywords are **extends** and **implements**);
@@ -72,7 +72,7 @@ With inheritance comes the concept of [polymorphism](http://en.wikipedia.org/wik
 
 In Java multiple inheritance is not available.
 
-####Override
+#### Override
 These are the rules for a legal override:
 
 * same list of parameters;
@@ -83,10 +83,10 @@ These are the rules for a legal override:
 * checked exceptions only if they're equals or subclass of the ones thrown by the parents;
 * you don't override a method if it's final or static;
 
-> ####Be aware that:
+> #### Be aware that:
 > Variable shadowing is a pain in the ass. When it comes to inheritance, this pain in the ass increases. I found an example that is really clear on how to handle these cases. Look at it because questions about this problem could be in the exam.
 
-~~~~~~~~
+~~~~~~~~ java
 class Parent {
     static String x="static in parent";
     String y="instance in parent";
@@ -120,7 +120,7 @@ public class Main {
 
 The output will be:
 
-~~~~~~~~
+~~~~~~~~ java
 Parent.x static in parent
 parent.x static in parent
 parent.y instance in parent
@@ -137,32 +137,32 @@ super.y instance in parent
 
 Remember that polymorphism is applied only in instance methods, not for attributes.
 
-####Overload
+#### Overload
 A method must change the list of the parameters. Optionally you can change the return type, the access modifier and throw new exception.
 
-> ####Be aware that:
+> #### Be aware that:
 > In case of overridden method, which method is going to be called is decided at runtime. In case of overload method, the method is decided at compile time because the number of parameters is meaningful.
 
-####Casting
+#### Casting
 A **downcast** is when you go down the inheritance three, like `Animal a = new Dog(); Dog b = (Dog) a;` whereas an **upcast** is when you go up in the inheritance tree so you don't have to cast explicitly.
 
 Generally speaking upcasting is not that useful but actually it comes to hand when you need to invoke a specific method. Let's say you have something like:
 
-~~~~~~~~
+~~~~~~~~ java
 public void doIt(Object o){}
 public void doIt(String s){}
 ~~~~~~~~
 
 and you have a String object. Then you want to call the first of the two method you need to do this:
 
-~~~~~~~~
+~~~~~~~~ java
 String s;
 doIt((Object) s);
 ~~~~~~~~
 
 Another reason could be the following one, I'm not explaining it because it would be a spectacular question on the exam, so I leave it to the reader:
 
-~~~~~~~~
+~~~~~~~~ java
 int i = 1;
 int c = 2;
 i+c;

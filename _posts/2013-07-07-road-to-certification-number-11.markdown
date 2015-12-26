@@ -5,7 +5,8 @@ date: 2013-07-07 11:11
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Exception Handling]
 ---
-##Exception Handling
+
+## Exception Handling
 The syntax for handling exception is:
 
 ~~~~~~~~
@@ -24,7 +25,7 @@ We have two type of exception: **checked** and **unchecked** exception. If an ex
 
 `Error` and `Exception` extend `Throwable`, `RuntimeException` extends `Exception`. `Error`, `Throwable` and `RuntimeException` are **unchecked**, `Exception` is checked.
 
-##Assertions
+## Assertions
 You can use it to identify the *truth* about some statements when you are **not** in production. We have two types of assertions:
 
 * `assert(<boolean expression>)`;
@@ -32,7 +33,7 @@ You can use it to identify the *truth* about some statements when you are **not*
 
 The second one gives you some more information and converts the second statement in a string. If the boolean expression is false then we'll have an **AssertionError** and you MUST NOT HANDLE IT, remember, it's not in production!
 
-> ####Be aware that:
+> #### Be aware that:
 > before Java 1.4 **assert** could be used as an identifier, so if we have a source code written before 1.4, we need to specify `javac -source 1.3 com/Class.java` so that **assert** will not be used as language keyword.
 
 > The option *-source* accept 1.3, 1.4, 1.5, 5, 1.6, 6
@@ -46,7 +47,7 @@ To enable or disable assertion at runtime:
 * `java -ea -dsa` enable all the assertions except the ones from system classes;
 * `java -ea -da:com.foo...` enable all the assertions except for a specific package;
 
-###How to use assertions
+### How to use assertions
 An `AssertionError` should not be handled.
 
 An assertion must not be used when:

@@ -5,7 +5,7 @@ date: 2013-07-15 15:50
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Concurrency, Threads]
 ---
-##Java Concurrency
+## Java Concurrency
 With the word *thread* in Java we indicates two things:
 
 * an instance of a `java.lang.Thread`, so basically an object living in memory heap;
@@ -15,7 +15,7 @@ There two types of thread: a user and a demon thread. JVM exits from executon on
 
 You can create a Thread *extending* the class `Thread` or implementing the interface `Runnable`. The method to override in both cases is `public void run()`. It's legal to overload `run()` but only `public void run()` is considered when it comes to create a new thread of execution.
 <!-- more -->
-To instantiate a thread we have four constructors: 
+To instantiate a thread we have four constructors:
 
 * `Thread()`;
 * `Thread(Runnable target)`;
@@ -24,14 +24,14 @@ To instantiate a thread we have four constructors:
 
 It's possible to pass the same instance of `Runnable` to several thread without problem (well, beware of shared data!). When a `Thread` has been create it is in the state **new**, when you call `start()`, the state is **runnable** and a new thread of excution is created but the execution doesn't start. The thread scheduler decides when a thread has to start the excution, you cannot control it (you can use priorities though).
 
-> ####Be aware that:
+> #### Be aware that:
 > It's legal to call directly the method `run()` as long as it's clear that you are not creating a new thread of excution. That's possible only when you call `start()`.
 
 To set a name of a Thread you can use `setName()`. If you are using a `Runnable`, you can access the name from `Thread.currentThread.getName(), if you have no way to access to the instance of the thread. The name of the thread associated to the method `main`, is "main" (duh!).
 
 When you excute more then one thread, you can assure that every thread will be executed, but you can't say anything about the order of execution of each thread. When the thread has finished the execution of `run()`, the thread will be in the state **dead**.
 
-###States of a Thread
+### States of a Thread
 
 * **NEW**: instance of Thread created(), `start()` has not been called yet;
 * **RUNNABLE**: `start()` has been called and we have a thread of execution, the thread is not running yet;
@@ -39,16 +39,16 @@ When you excute more then one thread, you can assure that every thread will be e
 * **WAITING**/**BLOCKED**/**SLEEPING**: the thread is alive but it's not possible to run it, like because is blocked for an I/O operation;
 * **DEAD**: the method run has finished;
 
-###Thread methods
+### Thread methods
 
-* `sleep()` it's static and accepts the number of milliseconds. It does not release acquired locks. Launches a `InterruptedException`; 
+* `sleep()` it's static and accepts the number of milliseconds. It does not release acquired locks. Launches a `InterruptedException`;
 * `yield()` it's static and launches an `InterruptedException`. It tells to the current thread to go back to the state runnable to leave space to other threads but remember that the scheduler decides what to do;
 * `join()` it's an instance method, when called tells to the current thread to wait for the thread who called the `join()` to end. It launches an `InterruptedException`;
 
-> ####Be aware that:
+> #### Be aware that:
 > When the method `run()` finishes the thread sends a `notifyAll()` so that if some other thread was waiting on that very same thread, it will wake up.
 
-###Thread priority
+### Thread priority
 
 In many cases the thread in state **running** will be the one that has higher priority or equal to the thread with the higher priority in **runnable** state.
 
@@ -56,7 +56,7 @@ A thread has initially the same priority of the current thread where it gets ins
 
 In Java the default priority is 5. You also have `Thread.MIN_PRIORITY`(1), `Thread.NORM_PRIORITY`(5), `Thread.MAX_PRIORITY`(10).
 
-###Synchronizing
+### Synchronizing
 
 * it's possible to syncronize only methods or code blocks;
 * every object and every class have an intrinsic lock;
@@ -64,5 +64,5 @@ In Java the default priority is 5. You also have `Thread.MIN_PRIORITY`(1), `Thre
 * `sleep` does not release locks;
 * if a thread has already acquired a lock, you use other syncronized methods using that lock;
 
-###Method of the Object class
+### Method of the Object class
 `wait()`, `notify()` and `notifyAll()` are instance methods of the class `Object` and they are called only in a syncronized context otherwise you'll get a runtime exception.  `wait()` releases acquired locks.

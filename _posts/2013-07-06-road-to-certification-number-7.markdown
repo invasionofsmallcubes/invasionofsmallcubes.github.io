@@ -5,10 +5,11 @@ date: 2013-07-03 11:42
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Array, Initialization]
 ---
-##How to assign elements to an array
+
+## How to assign elements to an array
 For arrays of primitive types, it's possible to assign those elements that you can implicitly cast to the type of the array. Here's an example:
 
-~~~~~~~~
+~~~~~~~~ java
 byte b = 4;
 char c = 'c';
 int[] a = new int[2];
@@ -22,17 +23,19 @@ I cannot assign entire arrays if they are of different type like `int[]!=char[]`
 
 Multidimensional arrays can be assign to each others if they have the same declaration dimension (`int[][] a` can be assigned to `int[][] b`). Basically this compiles and runs:
 
-~~~~~~~~
+~~~~~~~~ java
 int[][]	d = new int [2][];
 int[][] e = new int [3][];			
 d = e;
 ~~~~~~~~
 
 <!-- more -->
-##Initialization Blocks
+
+## Initialization Blocks
 You can have static or instance initialization blocks. They do not accept arguments and you can declare them with the following statements: `static {}` and `{}`. You can have more than one inside a class and they are executed in the order of declaration.
 
 The static ones are called when the class is loaded, the instance ones are called after the call to `super()` in the constructor you are using.
+
 ## Wrappers
 
 They are there to use primitive in a context where is necessary an object (like when you declare a `List`) and they also have utility methods for primitives. They are immutable (like `String`s).
@@ -41,7 +44,7 @@ Every wrappers has two constructors, one that accepts a primitive and one that a
 
 The `String` constructor of numerals wrappers throws a `NumberFormatException` if the parsing fails.
 
-###Some Useful Methods
+### Some Useful Methods
 
 * `static <WrapperType> valueOf(String valueOf)`: you can use it to create a wrapper from a String. Numerals have a second argument indicating the numeric base like `Integer.valueOf("110",2)`;
 * `<primitiveType> primitiveTypeValue()`: like `intValue` returns the primitive value of the wrapper instance;

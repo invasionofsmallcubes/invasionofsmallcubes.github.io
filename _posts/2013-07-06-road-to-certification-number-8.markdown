@@ -5,10 +5,11 @@ date: 2013-07-04 12:30
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Autoboxing, Wrappers, Garbage Collection]
 ---
-##Autoboxing, *==* and *equals()*
+
+## Autoboxing, *==* and *equals()*
 Today we will talk a bit more about wrappers. Autoboxing is the concept that allows you to do something like:
 
-~~~~~~~~
+~~~~~~~~ java
 Integer x = new Integer(1000);
 x++;
 ~~~~~~~~
@@ -17,7 +18,7 @@ If you remember, we said that wrappers are immutable, so what we wrote should no
 
 It's actually the JVM that does all that: we have a `Integer` x. When we use the post-increment operator, the JVM unbox the value from the wrapper, applies to it the operator, creates a new `Integer` with the incremented value and than assigns it to `x`. Still doubts? Just try this then:
 
-~~~~~~~~
+~~~~~~~~ java
 Integer y = new Integer(1999);
 Integer x = y;
 System.out.println(x == y);
@@ -28,7 +29,7 @@ System.out.println(x == y);
 <!-- more -->
 For wrappers equality is defined as having the same value and therefore the same primitive type. As we saw you really need to be careful in using the operator `==` because you can have surprises:
 
-~~~~~~~~
+~~~~~~~~ java
 Integer a = new Integer(126);
 Integer b = new Integer(126);
 System.out.println(a == b); // false
@@ -42,7 +43,7 @@ b = Integer.valueOf(1260);
 System.out.println(a == b); // false
 ~~~~~~~~
 
-> ####Be aware that:
+> #### Be aware that:
 > The [Java Language Specification](http://docs.oracle.com/javase/specs/jls/se7/html/jls-5.html#jls-5.1.7) says: if the value p being boxed is true, false, a byte, or a char in the range \u0000 to \u007f, or an int or short number between -128 and 127 (inclusive), then let r1 > and r2 be the results of any two boxing conversions of p. It is always the case that r1 == r2.
 >
 > Ideally, boxing a given primitive value p, would always yield an identical reference. In practice, this may not be feasible using existing implementation techniques. The rules above are a pragmatic compromise. The final clause above requires that certain common values always be boxed into indistinguishable objects.  
@@ -52,7 +53,7 @@ System.out.println(a == b); // false
 
 If you compare a primitive and a wrapper, the wrapper gets unboxed and compared. If you have a method with the signature `public void do(int x) {}` then if you try something like this you're getting a `NullPointerException`: `Integer x; do(x);` because you cannot unbox a **null** value.
 
-##Overloading when you pass parameters
+## Overloading when you pass parameters
 When you pass parameters you should think about three features of the language and how they relate to the signature of the method and to the type of the parameter actually passed as argument:
 
 * **widening** is when you have a **short** parameter and the method has an **int** argument. You are elevating a **short** to an **int** and it's ok because it's a subset;
@@ -69,7 +70,7 @@ If we are just considering objects then widening is in place where widening mean
 
 If we have boxing+widening it really depends on the specific case, you really need to exercise in this case. What happens here?
 
-~~~~~~~~
+~~~~~~~~ java
 public void doIt(Long a) {}
 ...
 byte b = 0;
@@ -78,7 +79,7 @@ doIt(b);
 
 We do not have a method suitable for a byte so the boxing elevates **byte** to a **Byte** but `Byte IS-A Long` is **false** so it won't compile. The real error is *The method doIt(Long) in the type MyExternalClass is not applicable for the arguments (Integer)*, after what we said, can you explain why it does say *Integer* and not *Byte*?
 
-##Garbage Collection
+## Garbage Collection
 Java handles automatically memory through the process of garbage collection using the JVM. Programmer is not in controll of it. The heap is the only area in the memory interested in garbage collection that wants to eliminate unused objects.
 
 *An object is eligible for garbage collection only when no live thread can access it*, meaning there is no reference pointing at it.

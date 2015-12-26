@@ -12,6 +12,7 @@ This is a quick post with the necessary configuration.
 <!-- more -->
 
 First declare a *coverageReporter* of type **lcov**.
+
 ~~~ javascript
 coverageReporter = {
 	type : 'lcov',
@@ -20,6 +21,7 @@ coverageReporter = {
 ~~~
 
 Then declare **coverage** as one of the *reporters*
+
 ~~~ javascript
 reporters = ['progress', 'dots', 'junit', 'coverage'];
 ~~~

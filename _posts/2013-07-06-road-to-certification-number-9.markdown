@@ -5,7 +5,8 @@ date: 2013-07-05 18:01
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Operators]
 ---
-##Comparison Operators
+
+## Comparison Operators
 
 * **compound assignment operator**: +=, -=, *=, and /=. The right expression gets evaluated first, so for example: `x *= 2 + 5` is equals to `x = x * (2+5)`;
 * **relational operators**: <, <=, >, >=, ==, !=. The result of this operator is a **boolean**. It's legal to use them to compare *ints*, *floating-points* and *chars*. Also, it should be already clear, but you can compare a **char** to an **int** because the JVM uses the unicode value of the character;
@@ -16,10 +17,10 @@ categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Operators]
 * **Conditional operator (ternary operator)**: `x = (boolean expression) ? <value if true> : <value if false>. It's possible to nest them;
 * **Logical operator**: `&`, `|` and `^` (XOR - true only if 1 0 or 0 1) are not short-circuit so the valutation is not partial. Remember it, you'll get plenty of exercise confusing between the usage of those.
 
-> ####Be aware that:
+> #### Be aware that:
 > `b=false; if(b=true);` it's legal because you are first assigning *b* to **true** and then it gets evaluated. For string concatenation be aware of the following usage:
 
-~~~~~~~~
+~~~~~~~~ java
 byte u = 3;
 System.out.println( u+1 ); // 4
 System.out.println( u+1+"text");  // 4text

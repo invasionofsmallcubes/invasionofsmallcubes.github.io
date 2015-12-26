@@ -22,7 +22,7 @@ You can use the hashcode to shrink the research set, its signature is `public in
 * two `equals` objects must return the same `hashCode`;
 * two not `equals` objects can return the same `hashCode`;
 
-##Collections
+## Collections
 You have two types of Collections:
 
 * ordered: it's possible to iterate a collection in a specific order (for example the insertion order);
@@ -30,14 +30,14 @@ You have two types of Collections:
 
 *`Map` does not implement `Collection`. `Set`, `List` and `Queue` implement `Collection`.*
 
-###List interface
+### List interface
 A class implementing a List is based on the usage of the index. It allows to have methods that use it like `get(int index)`, `add(int index, E element)` and `int indexOf(Object o)`. Lists are ordered using the index. When you are adding a new element, you are doing an append, unless you are going to specify and index.
 
 `ArrayList` can be used to have easy access to the elements of the arrays via the index (you have *O(1)*). It's ordered, not sorted. You can use it when you don't do many adds or deletes. `ArrayList` grows dinamically. `Vector` is the thread-safe version of `ArrayList`.
 
 `LinkedList` has elements linked between them. It's really easy to use it as a stack or a queue. It has methods to add at the end or at the beginning. It also implements `Queue`. It's not useful if you need to access it using the index.
 
-###Set Interface
+### Set Interface
 In a set you can find unique elements, so it's really import to implement `equals()` and `hashCode()`. If an element already exists, the `add` method will return **false**.
 
 `HashSet` is unsorted and unordered, you can use it if you don't care about the order of the elements (you have no guarantee about insertion order).
@@ -46,7 +46,7 @@ In a set you can find unique elements, so it's really import to implement `equal
 
 `TreeSet` is ordered and sorted, it uses by default the *ascending* order and you can define a `Comparable` or a `Comparator`.
 
-###Map Interface
+### Map Interface
 A map cares about unique identifiers. It's important to override `equals()` and `hashCode()` of the keys to speed things up.
 
 `HashMap` gives you an unsorted and unordered Map. Better is the implementation of `hashCode(), better is the access to an element. It allows to have a **null** key and as many **null** values you like.
@@ -57,6 +57,5 @@ A map cares about unique identifiers. It's important to override `equals()` and 
 
 `TreeMap` sorted and ordered. You can define a custom order for the keys.
 
-> ####Be aware that:
+> #### Be aware that:
 > every type of collection (even Map) accepts only objects so you can't do `List<int>` but `List<Integer>`.
-

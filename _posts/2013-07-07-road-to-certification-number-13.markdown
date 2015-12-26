@@ -5,10 +5,10 @@ date: 2013-07-09 14:33
 comments: true
 categories: [Sun, Certification, SCJP, OSCJP, JAVA6, Serialization]
 ---
-###Console
-Console is abstract, there is no constructor. You get the console via `System.console()`. Useful methods are `String readLine("%s", "input: ")` and `char[] readPassword()`. 
+### Console
+Console is abstract, there is no constructor. You get the console via `System.console()`. Useful methods are `String readLine("%s", "input: ")` and `char[] readPassword()`.
 
-##Serialization
+## Serialization
 You can serialize an object with all the instance variables (no static). The class must implement the interface `Serializable`. An attribute marked as **transient** will not be serialized.
 <!-- more -->
 You can serialize using an `Object(Output|Input)Stream` that accepts as input a `File(Output|Input)Stream`. Methods to put into the class are:
@@ -18,7 +18,7 @@ You can serialize using an `Object(Output|Input)Stream` that accepts as input a 
 
 inside those methods you can do something like:
 
-``` java SERIALIZATION
+``` java
 //write
 os.defaultWriteObject();
 os.writeInt(1);
@@ -29,7 +29,8 @@ int i = is.readInt();
 ```
 
 If a class is serializable, in fase of deserialization the transient objects are initialized to the default value of the type they belong to, because the constructor is not called. If a superclass is not serializable, when the subclass is deserialized, the *default* constructor of the superclass is called. A really good example from stackoverflow:
-``` java SERIALIZATION http://stackoverflow.com/questions/8141440/how-are-constructors-called-during-serialization-and-deserialization
+
+``` java
 public class ParentDeserializationTest {
 
 public static void main(String[] args){
@@ -80,5 +81,5 @@ public static class Child extends Parent implements Serializable{
     }
 }
 ```
-If you serialize a Collection or an array, all objects contained in it must be `Serializable`.
 
+If you serialize a Collection or an array, all objects contained in it must be `Serializable`.
