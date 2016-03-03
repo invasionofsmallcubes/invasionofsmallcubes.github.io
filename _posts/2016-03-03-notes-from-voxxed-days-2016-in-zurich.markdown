@@ -117,3 +117,7 @@ Testing pure code is far more easier because of referential transparency.
 Testing with functions can abstract much better the business logic.
 The secret is to separate the domain from the complexity of operations on the the edge of the domain.
 Also tests must be deterministic.
+
+[Property based testing](http://www.slideshare.net/ScottWlaschin/an-introduction-to-property-based-testing) means that generates a lot of random values with fixed properties that are invariant towards the tests. You use properties instead of assertions. Property based testing is easier with pure fp, because every time you generate the same property, you get the same output.
+
+You should separates pure part from impure part. For pure parts you get unit testing and property testing, for impure part you get integration tests (impure parts are the one that communicates with a database for example).
