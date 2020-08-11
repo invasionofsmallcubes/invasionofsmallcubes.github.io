@@ -8,17 +8,33 @@ Don't repeat yourself sometimes it's more harmful than anything.
 
 Write the first thing that it's easy, don't worry about optimization now.
 
-`func (*Xenia) Pull() (*Data, error)` 
+```golang
+func (*Xenia) Pull() (*Data, error)
+```
 this will put data on the heap
 
-`func (*Xenia) Pull(d *Data) error` this will not put data in heap, but will keep in the stack.
+```golang
+func (*Xenia) Pull(d *Data) error
+``` 
+this will not put data in heap, but will keep in the stack.
 
 Now I finally understood why marshall and decode have the return element in the argument.
 
 After we see that the system is stable, when we need to add a new behavior, then we introduce the interface.
 
-Don't define alias as `type Handle int`. If you have to explaining it using `int` then it's a real use type.
-`type Duration int64` makes sense because you can explain like **that represents a nanosecond of time**
+Don't define alias as 
+```golang
+type Handle int
+``` 
+If you have to explaining it using 
+```golang
+int
+``` 
+then it's a real use type.
+```golang
+type Duration int64
+``` 
+makes sense because you can explain like **that represents a nanosecond of time**
 
 For the rest check [here](https://github.com/ardanlabs/gotraining/blob/master/topics/courses/go/design/README.md)
 
@@ -45,6 +61,14 @@ A runtime will use work stealing algorithms.
 
 Channels are slow, they're filled with latency costs. We need to use them with careful attention. Avoid the use of WaitGroups for performance reasons but you should use them to track the work that has been done.
 
-To find race conditions, you can run `go build -race` or you can use the also go test `go test -race -cpu 24`, with extra threads.
+To find race conditions, you can run 
+```bash
+go build -race
+``` 
+or you can use the also go test 
+```bash
+go test -race -cpu 24
+```
+with extra threads.
 
 For the rest check [here](https://github.com/ardanlabs/gotraining/blob/master/topics/courses/go/concurrency/README.md)
