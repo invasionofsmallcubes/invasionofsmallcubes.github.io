@@ -6,7 +6,13 @@ import utilStyles from '../styles/utils.module.css'
 const name = 'The Invasion of Small Cubes'
 export const siteTitle = 'Welcome to the Invasion Of Small Cubes'
 
-export default function Layout({ children, home }) {
+export default function Layout({
+  children,
+  home
+}: {
+  children: React.ReactNode
+  home?: boolean
+}) {
   return (
     <div className={styles.container}>
       <Head>

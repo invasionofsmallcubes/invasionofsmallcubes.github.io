@@ -1,16 +1,26 @@
-import Layout from '../../components/layout'
 import { getAllPostIds, getPostData } from '../../lib/posts'
+
 import Date from '../../components/date'
-import utilStyles from '../../styles/utils.module.css'
 import Head from 'next/head'
+import Layout from '../../components/layout'
 import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { duotoneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import utilStyles from '../../styles/utils.module.css'
+
 const CodeBlock = ({ language, value }) => {
     return <SyntaxHighlighter style={duotoneDark} language={language}>{value}</SyntaxHighlighter>;
 };
 
-export default function Post({ postData }) {
+export default function Post({
+  postData
+}: {
+  postData: {
+    title: string
+    date: string
+    contentHtml: string
+  }
+}) {
     return (
         <Layout>
             <Head>
@@ -24,7 +34,7 @@ export default function Post({ postData }) {
                 <div>
                     <ReactMarkdown
                         escapeHtml={false}
-                        source={postData.c}
+                        source={(postData as any).c as any}
                         renderers={{ code: CodeBlock }}
                     /> </div>
             </article>
