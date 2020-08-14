@@ -1,10 +1,10 @@
 import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import remark from 'remark'
 import html from 'remark-html'
 import markdown from 'remark-parse'
+import matter from 'gray-matter'
 import midas from 'remark-midas'
+import path from 'path'
+import remark from 'remark'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -29,7 +29,7 @@ export function getSortedPostsData() {
         }
     })
     // Sort posts by date
-    return allPostsData.sort((a, b) => {
+    return allPostsData.sort((a: any, b: any) => {
         if (a.date < b.date) {
             return 1
         } else {
@@ -72,7 +72,7 @@ export async function getPostData(id) {
 
     // Use remark to convert markdown into HTML string
     const processedContent = await remark()
-        .use(markdown)
+        .use(markdown as any)
         .use(midas)
         .use(html)
         .process(matterResult.content)
