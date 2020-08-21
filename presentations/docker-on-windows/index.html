@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Install docker on Windows 10 Home</title>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Merriweather);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+
+      body {
+        font-family: "Merriweather";
+        font-size: xx-large;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: bolder;
+        font-weight: 400;
+        margin-bottom: 0;
+        font-family: "Yanone Kaffeesatz";
+      }
+
+      p {
+        padding: 0.5em;
+        line-height: 1.5em;
+        font-size: xx-large;
+      }
+
+      li {
+        padding: 0.5em;
+        line-height: 1em;
+        font-size: xx-large;
+      }
+
+      .remark-code,
+      .remark-inline-code {
+        font-size: x-large;
+        white-space: pre-wrap;
+      }
+
+      /* theme class for slide pages */
+      .inverse {
+        background: hsl(0, 0%, 15%);
+        color: hsl(0, 5%, 75%);
+      }
+
+      .inverse h1 {
+        text-align: center;
+        color: hsl(0, 5%, 95%);
+        line-height: 0.8em;
+      }
+
+      .inverse h2 {
+        color: hsl(0, 5%, 90%);
+        line-height: 0.8em;
+      }
+
+      .inverse a {
+        color: hsl(330, 75%, 50%);
+        text-decoration: none;
+      }
+
+      .inverse code {
+        color: hsl(330, 75%, 100%);
+      }
+
+      /* custom styles for inline span notation */
+      span.red {
+        color: hsl(0, 90%, 50%);
+        font-size: 0.7em;
+      }
+
+      .center-img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        padding: 20px;
+      }
+
+      .center-img-white {
+        background-color: white;
+      }
+
+      .footnote {
+        position: absolute;
+        bottom: 2em;
+        font-size: 0.7em;
+      }
+
+      /* print filling whole paper */
+      @media print {
+        .remark-slide-scaler {
+          left: 5vw !important;
+          width: 90vw !important;
+          top: 5vh !important;
+          height: 90vh !important;
+          transform: scale(1) !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <textarea id="source">
+class: inverse
+layout: true
+---
+class: center, middle
+
+# Install docker on Windows 10 Home
+
+
+---
+class: middle
+
+# The Context
+
+- If you want to run Docker for Desktop on Windows 10 you need to have Hyper-V and Containers enabled.
+- Windows 10 Home doesn't have those
+- You can still install Docker for Desktop anyway, don't buy 200$ of license
+
+You will see the following message:
+```
+Installation Failed: one prerequisite is not fulfilled
+Docker Desktop requires Windows 10 Pro or Enterprise version 15063 to run.
+```
+
+---
+class: middle
+
+# Install Hyper-V
+
+- To install Hyper-V, copy and paste into `Hyper-V.bat` the following lines and then run as an Administrator, reboot:
+```
+pushd "%~dp0"
+dir /b %SystemRoot%\servicing\Packages\*Hyper-V*.mum >hyper-v.txt
+for /f %%i in ('findstr /i . hyper-v.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+del hyper-v.txt
+Dism /online /enable-feature /featurename:Microsoft-Hyper-V -All /LimitAccess /ALL
+pause
+```
+
+---
+# Install Containers
+
+- To install Containers, copy and paste into `Containers.bat` the following lines and then run as an Administrator, reboot:
+```
+pushd "%~dp0"
+dir /b %SystemRoot%\servicing\Packages\*containers*.mum >containers.txt
+for /f %%i in ('findstr /i . containers.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+del containers.txt
+Dism /online /enable-feature /featurename:Containers -All /LimitAccess /ALL
+pause
+```
+
+---
+# Change Type of Windows
+
+- Go to: `\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion`
+- Change the value of `EditionId` to `Professional` clicking on *Modify*
+- Don't reboot
+- Install Docker For Desktop
+
+---
+class: center, middle
+
+# So long and thanks for all the fish!
+
+</textarea>
+
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+
+    <script src="https://unpkg.com/katex/dist/katex.min.js"></script>
+    <script src="https://unpkg.com/katex/dist/contrib/auto-render.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/katex/dist/katex.min.css" />
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <style>
+      .inverse div.mermaid {
+        background-color: hsl(0, 5%, 75%);
+      }
+    </style>
+
+    <script>
+      const slideshow = remark.create(
+        {
+          ratio: "16:9",
+          countIncrementalSlides: false,
+          highlightStyle: "github"
+        },
+        () => {
+          renderMathInElement(document.body, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false }
+            ]
+          });
+        }
+      );
+
+      mermaid.initialize({ startOnLoad: false, cloneCssStyles: false });
+      slideshow.on("afterShowSlide", s => {
+        for (const d of document.querySelectorAll("div.mermaid")) {
+          if (d.offsetWidth > 0) mermaid.init(undefined, d);
+        }
+      });
+    </script>
+  </body>
+</html>
