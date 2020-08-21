@@ -20,6 +20,21 @@ export default function Home({ allPostsData }) {
         <p>My Twitch handler is <a href="https://www.twitch.tv/theinvasionofsmallcubes">theinvasionofsmallcubes</a></p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Presentations</h2>
+
+        <p>
+          <a href="presentations/dtu-11032020">
+            Presentation <i>Of Product and Engineers</i> held at DTU (Copenhagen) on March 11th
+      2020</a>
+        </p>
+        <p>
+          <a href="presentations/docker-on-windows">Docker on Windows 10 Home</a>
+        </p>
+        <p>
+          <a href="presentations/dont-make-me-think">The notes on the book <i>Don't make me think (revisited)</i></a>
+        </p>
+      </section>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
