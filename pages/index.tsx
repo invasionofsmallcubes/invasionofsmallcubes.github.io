@@ -33,6 +33,9 @@ export default function Home({ allPostsData }) {
         <p>
           <a href="presentations/dont-make-me-think">The notes on the book <i>Don't make me think (revisited)</i></a>
         </p>
+        <p>
+          <a href="presentations/elemprog-1">Lesson 1</a>
+        </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
