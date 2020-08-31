@@ -28,13 +28,13 @@ export default function Home({ allPostsData }) {
       2020</a>
         </p>
         <p>
-          <a href="presentations/docker-on-windows">Docker on Windows 10 Home</a>
+          <a href="p/docker-on-windows">Docker on Windows 10 Home</a>
         </p>
         <p>
-          <a href="presentations/dont-make-me-think">The notes on the book <i>Don't make me think (revisited)</i></a>
+          <a href="p/dont-make-me-think">The notes on the book <i>Don't make me think (revisited)</i></a>
         </p>
         <p>
-          <a href="presentations/elemprog-1">Lesson 1</a>
+          <a href="p/elemprog/01">Slides for Elementary Programming held at DTU (Copenhagen) on the Winter 2020 Semester</a>
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
