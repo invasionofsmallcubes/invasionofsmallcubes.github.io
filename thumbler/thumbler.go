@@ -23,28 +23,30 @@ func main() {
 		log.Fatal(err)
 	}
 	for _, file := range files {
-		imageFile, err := os.Open(file)
-		defer imageFile.Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-		myImage, err := jpeg.Decode(imageFile)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		nySubImage := resize.Resize(160, 0, myImage, resize.Lanczos3)
-
 		f := strings.Split(file, "/")
 		size := len(f)
+		thumblFile := dirThumbler + f[size-1]
+		if _, err := os.Stat(thumblFile); os.IsNotExist(err) {
+			imageFile, err := os.Open(file)
+			defer imageFile.Close()
+			if err != nil {
+				log.Fatal(err)
+			}
+			myImage, err := jpeg.Decode(imageFile)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-		outputFile, err := os.Create(dirThumbler + f[size-1])
-		defer outputFile.Close()
+			nySubImage := resize.Resize(160, 0, myImage, resize.Lanczos3)
 
-		if err != nil {
-			log.Fatal(err)
+			outputFile, err := os.Create(thumblFile)
+			defer outputFile.Close()
+
+			if err != nil {
+				log.Fatal(err)
+			}
+			jpeg.Encode(outputFile, nySubImage, nil)
 		}
-		jpeg.Encode(outputFile, nySubImage, nil)
 	}
 }
 
