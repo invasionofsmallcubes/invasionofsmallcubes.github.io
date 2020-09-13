@@ -77,6 +77,12 @@
   margin: 0;
 }
 
+.listWedding  {
+  list-style: none;
+  columns: 3;
+  column-gap: 10px;
+}
+
 .listItem {
   margin: 0 0 1.25rem;
 }

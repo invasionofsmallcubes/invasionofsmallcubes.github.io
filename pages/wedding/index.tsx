@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import styles from '../../components/layout.module.css'
 import utilStyles from '../../styles/utils.module.css'
-const photosDirectory = path.join(process.cwd(), 'public/wedding')
+const photosDirectory = path.join(process.cwd(), 'public/thumbs')
 
 export default function Home({ photos }) {
   return (
@@ -16,22 +16,24 @@ export default function Home({ photos }) {
         <p>Welcome to Kasia and Emanuele wedding photos!</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <ul className={utilStyles.list}>
+        <ul className={utilStyles.listWedding}>
           {photos.map((id) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href="/wedding/[id]" as={`/wedding/${id}`}>
-                <a>{id}</a>
+                <img src={`/thumbs/${id}`} />
               </Link>
             </li>
           ))}
         </ul>
       </section>
     </div>
-    )
+  )
 }
 
 export async function getStaticProps() {
+
   const photos = fs.readdirSync(photosDirectory)
+
   return {
     props: {
       photos
