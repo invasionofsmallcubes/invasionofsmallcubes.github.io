@@ -1,5 +1,5 @@
 ---
-title: 'Dependency injection with C'
+title: 'One way of doing dependency injection with C'
 date: '2020-11-01'
 ---
 
@@ -75,3 +75,5 @@ static char *test_ac2() {
 ~~~
 
 Pretty neat, right?
+
+I'm no expert on this so if you have any advices, just write me on [twitter](https://twitter.com/IsTDDDeadYet)
