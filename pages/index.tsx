@@ -34,7 +34,7 @@ export default function Home({ allPostsData }) {
           <a href="p/dont-make-me-think">The notes on the book <i>Don't make me think (revisited)</i></a>
         </p>
         <p>
-          <a href="p/elemprog/01">Slides for Elementary Programming held at DTU (Copenhagen) on the Winter 2020 Semester</a>
+          <a href="https://github.com/invasionofsmallcubes/elementary-programming-dtu/tree/master/presentations">Slides for Elementary Programming held at DTU (Copenhagen) on the Winter 2020 Semester</a>
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
