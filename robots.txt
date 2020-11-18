@@ -1,5 +1,4 @@
-Sitemap: https://www.theinvasionofsmallcubes.com/api/sitemap
-
+Sitemap: https://www.theinvasionofsmallcubes.com/sitemap.xml
 User-agent: *
 Allow: /*
 
