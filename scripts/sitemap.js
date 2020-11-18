@@ -1,21 +1,24 @@
-const fs = require('fs')
+// const {SitemapStream, streamToPromise} = require('sitemap')
+const sm = require('sitemap')
+const fs = require('fs');
+const { Readable } = require( 'stream' )
 
 async function postData() {
+  const smStream = new sm.SitemapStream({
+    hostname: `https://www.theinvasionofsmallcubes.com`
+  });
   const posts = [];
   fs.readdirSync(process.cwd()+"/posts").forEach(file => {
     posts.push(file.replace(".md", ""));
   });
-  return posts;
+  
+    console.log("pre await");
+    return sm.streamToPromise(Readable.from(posts).pipe(smStream)).then((data) => {
+      const content = data.toString()
+      fs.writeFile('public/sitemap.xml', content, 
+      function (err) {if (err) return console.log(err);});
+    })
 }
 
-try {
-  fs.readdirSync('cache')
-} catch (e) {
-  fs.mkdirSync('cache')
-}
+postData().then(ok => console.log(ok)).catch(error => console.log(error));
 
-postData().then(posts => {
-  fs.writeFile('cache/data.js', `export const posts = ${JSON.stringify(posts)}`, function (err) {
-  if (err) return console.log(err);
-  console.log('Posts cached.');
-})})

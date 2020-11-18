@@ -31,7 +31,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn sitemap-posts && git add cache/data.js"
+      "pre-commit": "yarn run sitemap-posts && git add public/sitemap.xml"
     }
   }
 }
