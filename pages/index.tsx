@@ -11,8 +11,6 @@ export default function Home({allPostsData}) {
         <Layout home>
             <Head>
                 <title>{siteTitle}</title>
-                <script type="text/javascript" async src="https://www.googletagmanager.com/gtag/js?id=G-TX602JDKLH"/>
-                <script type="text/javascript" async src="tracking.js"/>
             </Head>
             <section className={utilStyles.headingMd}>
                 <p>Hello, my name is Emanuele and I make stuff people use.</p>
