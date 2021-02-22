@@ -476,10 +476,48 @@ on the concepts in the domain itself and should not contain any awareness
 of databases or other persistence mechanisms.
 
 ---
+class: middle
+
+# What is a function?
+
+.center-img3[![Function](function.png)]
+.center-text[
+A function]
+
+---
+class: middle
+
+# F# Types Cheat Sheet (1/2)
+
+- simple types
+<pre>type ProductCode = ProductCode of string</pre>
+- record types 
+<pre>type Person = {First:string; Last:string}</pre>
+- choice types 
+<pre>type OrderQuantity =
+  | UnitQuantity of int
+  | KilogramQuantity of decimal</pre>
+  
+---
+class: middle
+
+# F# Types Cheat Sheet (2/2)
+
+- optional values
+<pre>type Option<'a> =
+  | Some of 'a
+  | None</pre>
+- modeling errors 
+<pre>type Result<'Success,'Failure> =
+    | Ok of 'Success
+    | Error of 'Failure</pre>
+- modeling no value 
+<pre>type SaveCustomer = Customer -> unit</pre>
+
+---
 class: center, middle
 
 # So long and thanks for all the fish!
-
 
 <!-- <img class="center-img" src="galileo.gif" /> 
  - [This](https://agilemanifesto.org/).red.bold[*] is where everything has started
