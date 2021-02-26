@@ -309,7 +309,7 @@ class: middle
 
 <pre>
   workflow "Place Order" =
-    nput: OrderForm
+    input: OrderForm
     output:
     OrderPlaced event (put on a pile to send to other teams)
     OR InvalidOrder (put on appropriate pile)
@@ -422,7 +422,6 @@ class: middle
     AND LinePrice // new
 </pre>
 
-
 ---
 class: middle
 
@@ -513,6 +512,13 @@ class: middle
     | Error of 'Failure</pre>
 - modeling no value 
 <pre>type SaveCustomer = Customer -> unit</pre>
+
+---
+class: middle
+
+# Can types replace documentation?
+
+## Let's check some code! [Link](https://github.com/swlaschin/DomainModelingMadeFunctional)
 
 ---
 class: center, middle
