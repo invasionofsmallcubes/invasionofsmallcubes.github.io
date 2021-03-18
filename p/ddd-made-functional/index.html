@@ -36,7 +36,7 @@
 
     .remark-code,
     .remark-inline-code {
-      font-family: "Roboto Mono";
+      font-family: 'Monaco', monospace;
     }
 
     /* theme class for slide pages */
@@ -138,6 +138,11 @@
       line-height: 0;
     }
 
+    .unstyled {
+      padding: 0;
+      line-height: 0;
+    }
+
     /* print filling whole paper */
     @media print {
       .remark-slide-scaler {
@@ -194,7 +199,7 @@ class: middle
 team, other stakeholders, and (most importantly) the source code itself all
 share the same model?
 
-.center-img3[![Lean Requirements](lean_requirements.png)]
+.center-img3[![Lean Requirements](shared_model.png)]
 
 ---
 class: middle
@@ -306,7 +311,7 @@ class: middle
 
 # Let's document the Place Order workflow (1/3)
 
-<pre>
+~~~plaintext
   workflow "Place Order" =
     input: OrderForm
     output:
@@ -327,14 +332,14 @@ class: middle
 
     // step 4
     return OrderPlaced event (if no errors)
-</pre>
+~~~
 
 ---
 class: middle
 
 # Let's document the Place Order workflow (2/3)
 
-<pre>
+~~~plaintext
   substep "ValidateOrder" =
     input: 
       UnvalidatedOrder
@@ -352,14 +357,14 @@ class: middle
       return ValidatedOrder
     else:
       return ValidationError
-</pre>
+~~~
 
 ---
 class: middle
 
 # Let's document the Place Order workflow (3/3)
 
-<pre>
+~~~plaintext
   substep "PriceOrder" =
     input: ValidatedOrder
     output: PricedOrder
@@ -374,14 +379,14 @@ class: middle
     output: None
       create acknowledgment letter and send it
       and the priced order to the customer
-</pre>
+~~~
   
 ---
 class: middle
 
 # Data structures for Place Order workflow (1/2)
 
-<pre>
+~~~plaintext
   data UnvalidatedOrder =
     UnvalidatedCustomerInfo
       AND UnvalidatedShippingAddress
@@ -397,14 +402,14 @@ class: middle
     AND ValidatedShippingAddress
     AND ValidatedBillingAddress
     AND list of ValidatedOrderLine
-</pre>
+~~~
 
 ---
 class: middle
 
 # Data structures for Place Order workflow (2/2)
 
-<pre>
+~~~plaintext
   data ValidatedOrderLine =
     ValidatedProductCode
     AND ValidatedOrderQuantity
@@ -419,7 +424,7 @@ class: middle
   data PricedOrderLine =
     ValidatedOrderLine
     AND LinePrice // new
-</pre>
+~~~
 
 ---
 class: middle
@@ -485,39 +490,118 @@ A function]
 ---
 class: middle
 
-# F# Types Cheat Sheet (1/2)
+# F# Types Cheat Sheet (1/3)
 
 - simple types
-<pre>type ProductCode = ProductCode of string</pre>
+~~~fsharp
+type ProductCode = ProductCode of string
+~~~
 - record types 
-<pre>type Person = {First:string; Last:string}</pre>
-- choice types 
-<pre>type OrderQuantity =
-  | UnitQuantity of int
-  | KilogramQuantity of decimal</pre>
+~~~fsharp
+type Person = {First:string; Last:string}
+~~~
   
 ---
 class: middle
 
-# F# Types Cheat Sheet (2/2)
+# F# Types Cheat Sheet (2/3)
 
+- choice types 
+~~~fsharp
+type OrderQuantity =
+  | UnitQuantity of int
+  | KilogramQuantity of decimal
+~~~
 - optional values
-<pre>type Option<'a> =
+~~~fsharp
+type Option<'a> =
   | Some of 'a
-  | None</pre>
-- modeling errors 
-<pre>type Result<'Success,'Failure> =
-    | Ok of 'Success
-    | Error of 'Failure</pre>
-- modeling no value 
-<pre>type SaveCustomer = Customer -> unit</pre>
+  | None
+~~~
 
 ---
 class: middle
 
-# Can types replace documentation?
+# F# Types Cheat Sheet (3/3)
 
-## Let's check some code! [Link](https://github.com/swlaschin/DomainModelingMadeFunctional)
+- modeling errors 
+~~~fsharp
+type Result<'Success,'Failure> =
+    | Ok of 'Success
+    | Error of 'Failure
+~~~
+- modeling no value 
+~~~fsharp
+type SaveCustomer = Customer -> unit
+~~~
+
+---
+class: middle
+
+# Can types replace documentation? (1/2)
+
+~~~fsharp
+type ValidateOrder = UnvalidatedOrder-> ValidatedOrder
+
+type PlaceOrderEvents = {
+  AcknowledgmentSent : AcknowledgmentSent
+  OrderPlaced : OrderPlaced
+  BillableOrderPlaced : BillableOrderPlaced
+}
+
+type PlaceOrder = UnvalidatedOrder -> PlaceOrderEvents
+~~~
+
+---
+class: middle
+
+# Can types replace documentation? (2/2)
+
+<p class="unstyled">from this:</p>
+~~~plaintext
+workflow "Categorize Inbound Mail" =
+  input: Envelope contents
+  output:
+    QuoteForm (put on appropriate pile)
+    OR OrderForm (put on appropriate pile)
+    OR ...
+~~~
+<p class="unstyled">to this:</p>
+~~~fsharp
+type EnvelopeContents = EnvelopeContents of string
+
+type CategorizedMail =
+| Quote of QuoteForm
+| Order of OrderForm
+
+type CategorizeInboundMail = EnvelopeContents -> CategorizedMail
+~~~
+
+---
+class: middle
+
+# How to describe effects
+
+<p class="unstyled">this is just the happy path:</p>
+~~~fsharp
+type ValidateOrder = UnvalidatedOrder -> ValidatedOrder
+~~~
+<p class="unstyled">with effects:</p>
+~~~fsharp
+type ValidateOrder = UnvalidatedOrder -> Result<ValidatedOrder,ValidationError list>
+and ValidationError = {
+  FieldName : string
+  ErrorDescription : string
+}
+~~~
+<p class="unstyled">and we can generalized it:</p>
+~~~fsharp
+type ValidationResponse<'a> = Async<Result<'a,ValidationError list>>
+~~~
+<p class="unstyled">and _ValidateOrder_ becomes</p>
+~~~fsharp
+type ValidateOrder = UnvalidatedOrder -> ValidationResponse<ValidatedOrder>
+~~~
 
 ---
 class: center, middle
@@ -607,7 +691,7 @@ class: center, middle
       {
         ratio: "16:9",
         countIncrementalSlides: false,
-        highlightStyle: "github" // highlight.js theme
+        highlightStyle: "solarized-dark" // highlight.js theme
       },
       () => {
         // KaTeX sessting
