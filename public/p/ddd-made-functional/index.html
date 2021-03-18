@@ -139,9 +139,10 @@
     }
 
     .unstyled {
-      padding: 0;
+      padding: 0.5px;
       line-height: 0;
       font-weight: lighter;
+      font-size: x-large;
     }
 
     /* print filling whole paper */
@@ -165,7 +166,8 @@ layout: true
 class: center, middle
 
 # Domain Modeling Made Functional 
-## Book Report
+## by Scott Wlaschin
+Book Report
 
 .foornote[by [Emanuele Ianni](https://www.theinvasionofsmallcubes.com)]
 
@@ -237,9 +239,8 @@ class: middle
 ---
 class: middle
 
-# The workflow*
+# The workflow
 <img class="center-img2" src="flow.png" />
-.footnote[*for now we are not considering the error flow]
 
 ---
 class: middle
@@ -626,15 +627,167 @@ the “root.”
 ---
 class: middle
 
-# ToDo
+# Value Objects with Validation
 
-- immutability with value objects (104-105)
-- aggregates (106)
-- protect the bounded context (116)
-- consistency (124)
-- dependency inject (140)
-- working with errors (100)
-- conclusion (290)
+~~~fsharp
+module UnitQuantity =
+
+type UnitQuantity = private UnitQuantity of int
+
+let create qty =
+  if qty < 1 then Error "UnitQuantity can not be negative"
+  else if qty > 1000 then Error "UnitQuantity can not be more than 1000"
+  else Ok (UnitQuantity qty)
+
+let value (UnitQuantity qty) = qty
+~~~
+<p class="unstyled">and we can use it this way:</p>
+~~~fsharp
+let unitQtyResult = UnitQuantity.create 1
+match unitQtyResult with
+  | Error msg -> printfn "Failure, Message is %s" msg
+  | Ok uQty -> printfn "Success. Value is %A" uQty
+~~~
+<p class="unstyled">and you can unwrap the value:</p>
+~~~fsharp
+let innerValue = UnitQuantity.value uQty
+printfn "innerValue is %i" innerValue
+~~~
+---
+class: middle
+
+# Aggregate root
+
+~~~fsharp
+type Order = {
+  OrderId : OrderId
+  Customer : Customer // info about associated customer
+  OrderLines : OrderLine list
+  // etc
+  }
+
+let changeOrderLinePrice order orderLineId newPrice =
+  let orderLine = order.OrderLines |> findOrderLine orderLineId
+  let newOrderLine = {orderLine with Price = newPrice}
+  let newOrderLines = order.OrderLines |> replaceOrderLine orderLineId newOrderLine
+  let newAmountToBill = newOrderLines |> List.sumBy (fun line -> line.Price)
+  let newOrder = {
+    order with
+    OrderLines = newOrderLines
+    AmountToBill = newAmountToBill
+  }
+  // return the new order
+  newOrder
+~~~
+
+---
+class: middle
+
+# Dependency Injection
+
+## using currying
+
+~~~fsharp
+type ValidateOrder =
+  CheckProductCodeExists // dependency
+  -> CheckAddressExists // dependency
+  -> UnvalidatedOrder // input
+  -> Result<ValidatedOrder,ValidationError> // output
+~~~
+
+---
+class: middle
+
+# Type of Errors
+
+- **Domain Errors.** These are errors that are to be expected as part of the
+business process and therefore must be included in the design of the
+domain, such as an order that is rejected by billing. The business will already have procedures
+in place to deal with this kind of thing, and the code will need to reflect
+these processes.
+- **Panics.** These are errors that leave the system in an unknown state,
+such as unhandleable system errors (such as “out of memory”) or errors
+caused by programmer oversight (“divide by zero” or “null
+reference”).
+- **Infrastructure Errors.** These are errors that are to be expected as part of
+the architecture but are not part of any business process and are not
+included in the domain, such as a network timeout or an authentication
+failure.
+
+<p class="unstyled">Sometimes it’s not clear whether something is a domain error or not.</p>
+<p class="unstyled">If you’re
+unsure, just ask a domain expert!</p>
+
+---
+class: middle
+
+# The Place Order endpoint
+
+```fsharp
+let placeOrderApi : PlaceOrderApi =
+    fun request ->
+        // start with a string
+        let orderFormJson = request.Body
+        let orderForm = JsonConvert.DeserializeObject<OrderFormDto>(orderFormJson)
+        // convert to domain object
+        let unvalidatedOrder = orderForm |> OrderFormDto.toUnvalidatedOrder
+        // setup the dependencies. See "Injecting Dependencies" in chapter 9
+        let workflow = 
+            Implementation.placeOrder 
+                checkProductExists // dependency
+                checkAddressExists // dependency
+                getProductPrice    // dependency
+                createOrderAcknowledgmentLetter  // dependency
+                sendOrderAcknowledgment // dependency
+
+        // now we are in the pure domain
+        let asyncResult = workflow unvalidatedOrder 
+
+        // now convert from the pure domain back to a HttpResponse
+        asyncResult 
+        |> Async.map (workflowResultToHttpReponse)
+
+```
+
+---
+class: middle
+
+# The Place Order command 
+
+```fsharp
+let placeOrder 
+    checkProductExists checkAddressExists getProductPrice // dependencies
+    createOrderAcknowledgmentLetter sendOrderAcknowledgment // dependencies
+    : PlaceOrder = // definition of function
+
+    fun unvalidatedOrder -> 
+        asyncResult {
+            let! validatedOrder = 
+                validateOrder checkProductExists checkAddressExists unvalidatedOrder 
+                |> AsyncResult.mapError PlaceOrderError.Validation
+            let! pricedOrder = 
+                priceOrder getProductPrice validatedOrder 
+                |> AsyncResult.ofResult
+                |> AsyncResult.mapError PlaceOrderError.Pricing
+            let acknowledgementOption = 
+                acknowledgeOrder createOrderAcknowledgmentLetter sendOrderAcknowledgment pricedOrder 
+            let events = 
+                createEvents pricedOrder acknowledgementOption 
+            return events
+        }
+```
+
+---
+class: middle
+
+# Conclusion
+
+- the DDD part, although is simplistic compared to other books, for example Eric Evans' books, it's good for someone starting with this topic
+- many of the confusion parts about functional programming are explained really well with actual examples to implement the order domain (there is also a github repository if you want to explore the code)
+- the book doesn't stop to theory but if you follow, you can implement from HTTP endpoint to persistence to a document db so everything is pretty practical
+- I feel personally I clarified some of the aspect that usually remanins a little bit abstract when it comes to functional programming applied to real problems
+- it's a buy 👍
+
 ---
 class: center, middle
 
