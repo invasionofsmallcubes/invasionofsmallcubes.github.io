@@ -611,14 +611,14 @@ class: middle
 
 # Other DDD concepts
 
-- A **Value Object** is a domain object without identity. Two Value Objects containing
+- A <u>Value Object</u>u> is a domain object without identity. Two Value Objects containing
 the same data are considered identical. Value Objects must be immutable. Examples of Value Objects
 are names, addresses, locations, money, and dates.
-- An **Entity** is a domain object that has an intrinsic identity that persists even as
+- An <u>Entity</u>u> is a domain object that has an intrinsic identity that persists even as
 its properties change. Entity objects generally have an ID or key field, and two
 Entities with the same ID/key are considered to be the same object. Examples of Entities are customers, orders, products, and
 invoices.
--  An **Aggregate** is a collection of related objects that are treated as a single component
+-  An <u>Aggregate</u>u> is a collection of related objects that are treated as a single component
 both to ensure consistency in the domain and to be used as an atomic unit
 in data transactions. Other Entities should only reference the aggregate by its
 identifier, which is the ID of the “top-level” member of the aggregate, known as
@@ -700,16 +700,16 @@ class: middle
 
 # Type of Errors
 
-- **Domain Errors.** These are errors that are to be expected as part of the
+- <u>Domain Errors</u> These are errors that are to be expected as part of the
 business process and therefore must be included in the design of the
 domain, such as an order that is rejected by billing. The business will already have procedures
 in place to deal with this kind of thing, and the code will need to reflect
 these processes.
-- **Panics.** These are errors that leave the system in an unknown state,
+- <u>Panics.</u> These are errors that leave the system in an unknown state,
 such as unhandleable system errors (such as “out of memory”) or errors
 caused by programmer oversight (“divide by zero” or “null
 reference”).
-- **Infrastructure Errors.** These are errors that are to be expected as part of
+- <u>Infrastructure Errors.</u> These are errors that are to be expected as part of
 the architecture but are not part of any business process and are not
 included in the domain, such as a network timeout or an authentication
 failure.
