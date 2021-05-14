@@ -23,7 +23,7 @@ export default function Home({allPostsData}) {
             <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
                 <h2 className={utilStyles.headingLg}>Presentations</h2>
 
-                <p>Book report on <a href="p/ddd-made-functional">DDD make functional</a></p>
+                <p>Book report on <a href="p/ddd-made-functional">DDD made functional</a></p>
                 <p>Presentation <a href="p/dtu-11032020"><i>Of Product and Engineers</i></a> held at DTU (Copenhagen) on March 11th 2020</p>
                 <p>Workaround for <a href="p/docker-on-windows">Docker on Windows 10 Home</a></p>
                 <p>Slides for <a href="https://github.com/invasionofsmallcubes/elementary-programming-dtu/tree/master/presentations">Elementary Programming held at DTU (Copenhagen) on the Winter 2020 Semester</a></p>
