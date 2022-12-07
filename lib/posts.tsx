@@ -2,7 +2,7 @@ import fs from 'fs'
 import html from 'remark-html'
 import markdown from 'remark-parse'
 import matter from 'gray-matter'
-import midas from 'remark-midas'
+import showdown from 'showdown'
 import path from 'path'
 import remark from 'remark'
 
@@ -71,11 +71,9 @@ export async function getPostData(id) {
     const matterResult = matter(fileContents)
 
     // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-        .use(markdown as any)
-        .use(midas)
-        .use(html)
-        .process(matterResult.content)
+
+    const converter = new showdown.Converter()
+    const processedContent = converter.makeHtml(matterResult.content)
     const contentHtml = processedContent.toString()
     const c = matterResult.content
     // Combine the data with the id and contentHtml

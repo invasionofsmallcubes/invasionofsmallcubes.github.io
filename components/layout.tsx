@@ -7,16 +7,16 @@ const name = 'The Invasion of Small Cubes'
 export const siteTitle = 'Welcome to the Invasion Of Small Cubes'
 
 export default function Layout({
-                                   children,
-                                   home
-                               }: {
+    children,
+    home
+}: {
     children: React.ReactNode
     home?: boolean
 }) {
     return (
         <div className={styles.container}>
             <Head>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="description"
                     content="this is my note taking app, shared with everybody"
@@ -27,8 +27,8 @@ export default function Layout({
                         siteTitle
                     )}.png?theme=dark&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
                 />
-                <meta name="og:title" content={siteTitle}/>
-                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="og:title" content={siteTitle} />
+                <meta name="twitter:card" content="summary_large_image" />
                 <script src="tracking.js"></script>
             </Head>
             <header className={styles.header}>
@@ -44,17 +44,16 @@ export default function Layout({
                 ) : (
                     <>
                         <Link href="/">
-                            <a>
-                                <img
-                                    src="/images/face.jpeg"
-                                    className={`${styles.headerImage} ${utilStyles.borderCircle}`}
-                                    alt={name}
-                                />
-                            </a>
+
+                            <img
+                                src="/images/face.jpeg"
+                                className={`${styles.headerImage} ${utilStyles.borderCircle}`}
+                                alt={name}
+                            />
                         </Link>
                         <h2 className={utilStyles.headingLg}>
-                            <Link href="/">
-                                <a className={utilStyles.colorInherit}>{name}</a>
+                            <Link className={utilStyles.colorInherit} href="/">
+                                {name}
                             </Link>
                         </h2>
                     </>
@@ -63,8 +62,8 @@ export default function Layout({
             <main>{children}</main>
             {!home && (
                 <div className={styles.backToHome}>
-                    <Link href="/">
-                        <a>← Back to home</a>
+                    <Link legacyBehavior href="/">
+                        ← Back to home
                     </Link>
                 </div>
             )}

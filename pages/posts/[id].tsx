@@ -13,13 +13,13 @@ const CodeBlock = ({ language, value }) => {
 };
 
 export default function Post({
-  postData
+    postData
 }: {
-  postData: {
-    title: string
-    date: string
-    contentHtml: string
-  }
+    postData: {
+        title: string
+        date: string
+        contentHtml: string
+    }
 }) {
     return (
         <Layout>
@@ -33,9 +33,25 @@ export default function Post({
                 </div>
                 <div>
                     <ReactMarkdown
-                        escapeHtml={false}
-                        source={(postData as any).c as any}
-                        renderers={{ code: CodeBlock }}
+                        children={(postData as any).c as any}
+                        components={{
+                            code({ node, inline, className, children, ...props }) {
+                                const match = /language-(\w+)/.exec(className || '')
+                                return !inline && match ? (
+                                    <SyntaxHighlighter
+                                        children={String(children).replace(/\n$/, '')}
+                                        style={duotoneDark}
+                                        language={match[1]}
+                                        PreTag="div"
+                                        {...props}
+                                    />
+                                ) : (
+                                    <code className={className} {...props}>
+                                        {children}
+                                    </code>
+                                )
+                            }
+                        }}
                     /> </div>
             </article>
         </Layout>
