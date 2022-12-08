@@ -7,9 +7,9 @@ This deserves my 2 years iatus from posting.
 
 I wanted to try and see what I could do with chatGPT. This took some time as too many people are using it so I had to retry some of the questions.
 
-> *I would like to write code in Java. I would like to write a method that receive in input a url as string and a tag, also as string. It should return "https://short.url" + tag*
+> *I would like to write code in Java. I would like to write a method that receive in input a url as string and a tag, also as string. It should return "https://short.url" + tag
 
-For example if I put in input "https://google.com" and "gog" it should return "https://short.url/gog".
+For example if I put in input "https://google.com" and "gog" it should return "https://short.url/gog".*
 
 Here's one way you could write this method in Java:
 
@@ -235,7 +235,7 @@ func NewUrlShortener() *UrlShortener {
 }
 ~~~
 
-This implementation is similar to the Java implementation, but uses Go's built-in map type instead of a `HashMap` to store the URLs and their associated tags. The `CreateShortUrl` method stores the URL and tag in the map, and the `GetOriginalUrl` method retrieves the URL from the map based on the tag. The `NewUrlShortener` function is a constructor that creates a new `UrlShortener` instance and initializes the urlMap field.
+This implementation is similar to the Java implementation, but uses Go's built-in map type instead of a `HashMap` to store the URLs and their associated tags. The `CreateShortUrl` method stores the URL and tag in the map, and the `GetOriginalUrl` method retrieves the URL from the map based on the tag. The `NewUrlShortener` function is a constructor that creates a new `UrlShortener` instance and initializes the `urlMap` field.
 
 Here's an example of how you could use this `UrlShortener` class in Go:
 
@@ -253,7 +253,7 @@ This code creates a new `UrlShortener` instance using the `NewUrlShortener` cons
 
 > *Let's go back to the `UrlShortener` in Java. Can you extract the map in a class called `Database` and add methods to add and recover the data from the map.*
 
-Sure, here's how you could extract the urlMap field into a separate Database class in Java:
+Sure, here's how you could extract the `urlMap` field into a separate Database class in Java:
 
 ~~~ java
 public class UrlShortener {
