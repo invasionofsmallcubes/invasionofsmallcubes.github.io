@@ -32,9 +32,16 @@ jobs:
       - run: yarn build
       - run: yarn export
 
-      - name: Deploy
+      - name: Deploy to github.io
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           cname: www.theinvasionofsmallcubes.com
           publish_dir: ./out
+    
+      - name: Deploy to neocities
+        uses: bcomnes/deploy-to-neocities@v2
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+          cleanup: false
+          dist_dir: ./out
